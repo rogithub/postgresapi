@@ -10,7 +10,7 @@ podman pull postgrest/postgrest
 
 podman run --pod=PostgREST \
   --name=postgresql \
-  -v /home/ro/Documents/code/Databases/postgresql:/var/lib/postgresql/data \
+  -v $POSTGRES_CONTAINER_DATA_DIR:/var/lib/postgresql/data \
   -e TZ=America/Cancun \
   -e PGTZ=America/Cancun \
   -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
@@ -28,7 +28,7 @@ podman run --pod=PostgREST \
   -d postgrest/postgrest
 
 podman generate systemd postgresql -n > postgresql.service
-mv postgresql.service ~/.config/systemd/user
+mv postgresql.service ~/.config/systemd/user_
 systemctl --user daemon-reload
 systemctl --user status postgresql
 systemctl --user enable --now postgresql
