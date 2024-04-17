@@ -54,6 +54,6 @@ podman logs postgresql
 # how to open bash
 podman exec -it postgresql bash
 
-# inide bash connect to psql
+# inside container bash / connect to psql 
 psql -U $POSTGRES_USER -d $POSTGRES_DB
 ```
