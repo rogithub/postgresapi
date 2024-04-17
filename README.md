@@ -1,5 +1,8 @@
 # postgresapi
 
+Instrucciones para correr PostgreSQL y PostgREST en debian usanod podman.
+How to host PostgreSQL and PostgREST using podman in debian.
+
 https://postgrest.org/en/v12/index.html
 
 
