@@ -1,11 +1,12 @@
 # postgresapi
 
--- https://github.com/PostgREST/postgrest/discussions/3080
+https://postgrest.org/en/v12/index.html
+
 
 ``` bash
-podman pod create --name PostgREST
+podman pod create --name PostgREST -p $POSTGRES_DB:$POSTGRES_DB -p $PGRST_SERVER_PORT:$PGRST_SERVER_PORT
 podman pull postgres
-podman pull postgrest/postgrest:v9.0.0.20220211 
+podman pull postgrest/postgrest
 
 podman run --pod=PostgREST \
   --name=postgresql \
@@ -15,12 +16,15 @@ podman run --pod=PostgREST \
   -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
   -e POSTGRES_USER=$POSTGRES_USER \
   -e POSTGRES_DB=$POSTGRES_DB \
-  -p 5432:5432 \
+  -p $POSTGRES_PORT:$POSTGRES_PORT \
   -d postgres
 
 
 podman run --pod=PostgREST \
   -e PGREST_DB_URI=$PGREST_DB_URI \
+  -e PGRST_DB_SCHEMAS=api \
+  -e PGRST_DB_ANON_ROLE=web_anon \
+  -e PGRST_SERVER_PORT=$PGRST_SERVER_PORT
   --name postgrest \
   -d postgrest/postgrest
 
