@@ -1,16 +1,23 @@
 # postgresapi
 
 Instrucciones para correr PostgreSQL y PostgREST en debian usanod podman.
+
 How to host PostgreSQL and PostgREST using podman in debian.
 
+## docs official
 https://postgrest.org/en/v12/index.html
 
 
 ``` bash
+
+# create pod
 podman pod create --name PostgREST -p $POSTGRES_PORT:$POSTGRES_PORT -p $PGRST_SERVER_PORT:$PGRST_SERVER_PORT
+
+# pull images
 podman pull postgres
 podman pull postgrest/postgrest
 
+# run PostgreSQL container
 podman run --pod=PostgREST \
   --name=postgresql \
   -v $POSTGRES_CONTAINER_DATA_DIR:/var/lib/postgresql/data \
@@ -22,6 +29,7 @@ podman run --pod=PostgREST \
   -d postgres
 
 
+# run PostgREST container
 podman run --pod=PostgREST \
   -e PGRST_DB_URI=$PGRST_DB_URI \
   -e PGRST_DB_SCHEMAS=api \
@@ -30,6 +38,7 @@ podman run --pod=PostgREST \
   --name postgrest \
   -d postgrest/postgrest
 
+# Systemd / optional
 podman generate systemd postgresql -n > postgresql.service
 mv postgresql.service ~/.config/systemd/user_
 systemctl --user daemon-reload
@@ -38,11 +47,13 @@ systemctl --user enable --now postgresql
 systemctl --user status postgresql
 loginctl enable-linger $USER
 
-# logs
+# how to check logs
 podman logs postgrest
 podman logs postgresql
 
+# how to open bash
 podman exec -it postgresql bash
-# una vez adentro
+
+# inide bash connect to psql
 psql -U $POSTGRES_USER -d $POSTGRES_DB
 ```
