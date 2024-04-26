@@ -38,9 +38,12 @@ podman run --pod=PostgREST \
   --name postgrest \
   -d postgrest/postgrest
 
+# start both
+podman start postgresql & podman start postgrest
+
 # Systemd / optional
 podman generate systemd postgresql -n > postgresql.service
-mv postgresql.service ~/.config/systemd/user_
+mv postgresql.service ~/.config/systemd/user
 systemctl --user daemon-reload
 systemctl --user status postgresql
 systemctl --user enable --now postgresql
