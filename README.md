@@ -32,9 +32,10 @@ podman run --pod=PostgREST \
 # run PostgREST container
 podman run --pod=PostgREST \
   -e PGRST_DB_URI=$PGRST_DB_URI \
-  -e PGRST_DB_SCHEMAS=api \
-  -e PGRST_DB_ANON_ROLE=web_anon \
+  -e PGRST_DB_SCHEMAS=$PGRST_DB_SCHEMAS \
+  -e PGRST_DB_ANON_ROLE=$PGRST_DB_ANON_ROLE \
   -e PGRST_SERVER_PORT=$PGRST_SERVER_PORT \
+  -e PGRST_JWT_SECRET=$PGRST_JWT_SECRET \
   --name postgrest \
   -d postgrest/postgrest
 
