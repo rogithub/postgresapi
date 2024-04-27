@@ -42,14 +42,11 @@ podman run --pod=PostgREST \
 # start both
 podman start postgresql & podman start postgrest
 
-# Systemd / optional
-podman generate systemd postgresql -n > postgresql.service
-mv postgresql.service ~/.config/systemd/user
-systemctl --user daemon-reload
-systemctl --user status postgresql
-systemctl --user enable --now postgresql
-systemctl --user status postgresql
-loginctl enable-linger $USER
+# Login
+curl "http://localhost:3003/rpc/login" \
+  -X POST -H "Content-Type: application/json" \
+  -d '{ "email": "TU_CORREO", "pass": "PWD_COMO_COMPU_ESPOSA" }'
+
 
 # how to check logs
 podman logs postgrest
