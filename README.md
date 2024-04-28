@@ -47,6 +47,11 @@ curl "http://localhost:3003/rpc/login" \
   -X POST -H "Content-Type: application/json" \
   -d '{ "email": "TU_CORREO", "pass": "PWD_COMO_COMPU_ESPOSA" }'
 
+curl http://localhost:3003/impresoras -v -X POST \
+     -H "Authorization: Bearer $TOKEN"   \     
+     -H "Content-Type: application/json" \
+     -d '{"nombre": "Kyocera"}'
+
 
 # how to check logs
 podman logs postgrest
